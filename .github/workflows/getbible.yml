@@ -23,7 +23,7 @@ jobs:
       - name: check gem
         run: |
           gem -v
-          gem install colorize optparse clipboard
+          sudo gem install colorize optparse clipboard
           
       - name: get bible
         run: |
