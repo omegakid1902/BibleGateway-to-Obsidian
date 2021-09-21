@@ -14,23 +14,26 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: submodule
+        run: |
+          git submodule init
+          git submodule update
+          cp BibleGateway-to-Obsidian/bg2md.rb ./
+          
       - name: check gem
         run: |
           gem -v
-
-      - name: Clone zettelkasten
+          gem install colorize optparse clipboard
+          
+      - name: get bible
         run: |
-          cd ..
-          git clone https://github.com/omegakid1902/zettelkasten.git
+          bash bg2obs.sh -i -v BPT
 
-#
-#      - name: Commit report
-#        run: |
-#          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
-#          git config --local user.name "github-actions[bot]"
-#          git add ./content/
-#          echo "$(date '+%Y-%m-%d %H:%M:%S')-build.${{ github.run_number }}: update_zettelkasten" >> build.log
-#          git add build.log
-#          git diff-index --quiet HEAD \
-#            || git commit -m "gh-pages build number #${{ github.run_number }}"
-#          git push origin main
+      - name: Commit report
+        run: |
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add .
+          git diff-index --quiet HEAD \
+            || git commit -m "gh-pages build number #${{ github.run_number }}"
+          git push origin master
