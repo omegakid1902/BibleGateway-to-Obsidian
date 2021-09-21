@@ -18,7 +18,7 @@ jobs:
         run: |
           git submodule init
           git submodule update
-          cp BibleGateway-to-Obsidian/bg2md.rb ./
+          cp BibleGateway-to-Markdown/bg2md.rb ./
           
       - name: check gem
         run: |
