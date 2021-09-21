@@ -41,4 +41,10 @@ jobs:
           git add .
           git diff-index --quiet HEAD \
             || git commit -m "Get bible version ${{ github.event.inputs.name }}"
-          git push origin main
+          git branch -m ${{ github.event.inputs.name }}
+          
+      - name: push
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.event.inputs.name }}
